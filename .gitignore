@@ -126,3 +126,6 @@ dmypy.json
 # data and src folders
 src/
 data/
+
+# .idea folder
+.idea/

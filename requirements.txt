@@ -3,3 +3,5 @@ numpy~=2.2.0
 seaborn~=0.13.2
 matplotlib~=3.10.0
 scikit-learn~=1.6.0
+python-dotenv~=1.0.1
+SQLAlchemy~=2.0.36

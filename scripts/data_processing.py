@@ -1,5 +1,8 @@
 import pandas as pd
 import numpy as np
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
 
 def load_data(file_path):
     """Load dataset and return a DataFrame."""
@@ -42,3 +45,17 @@ def handle_outliers(data, columns):
         upper_bound = q3 + 1.5 * iqr
         data[column] = np.clip(data[column], lower_bound, upper_bound)
     return data
+
+def perform_pca(data, columns):
+    """Perform PCA and return explained variance ratio."""
+    pca = PCA(n_components=2)
+    principal_components = pca.fit_transform(data[columns])
+    explained_variance = pca.explained_variance_ratio_
+    return principal_components, explained_variance
+
+def normalize_engagement_metrics(engagement_metrics):
+    """Normalize engagement metrics using StandardScaler."""
+    scaler = StandardScaler()
+    engagement_metrics[['session_frequency', 'session_duration', 'total_traffic']] = scaler.fit_transform(
+        engagement_metrics[['session_frequency', 'session_duration', 'total_traffic']])
+    return engagement_metrics

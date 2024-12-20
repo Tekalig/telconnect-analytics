@@ -9,8 +9,6 @@ def get_top_manufacturers(data, top_n=3):
     return data['Handset Manufacturer'].value_counts().head(top_n)
 
 
-
-
 def get_top_handsets_per_manufacturer(data, manufacturers, top_n=5):
     """
     Identify the top N handsets per manufacturer and return a DataFrame.
@@ -51,4 +49,17 @@ def aggregate_user_behavior(data):
     )
     user_agg['total_data_volume'] = user_agg['total_download'] + user_agg['total_upload']
     return user_agg.reset_index()
+
+
+def aggregate_engagement_metrics(df):
+    """Aggregate engagement metrics per customer (MSISDN)."""
+    engagement_metrics = df.groupby('MSISDN/Number').agg(
+        session_frequency=('Bearer Id', 'count'),
+        session_duration=('Dur. (ms)', 'sum'),
+        total_ul_traffic=('Total UL (Bytes)', 'sum'),
+    total_dl_traffic = ('Total DL (Bytes)', 'sum')
+    ).reset_index()
+    engagement_metrics['total_traffic'] = engagement_metrics['total_ul_traffic'] + engagement_metrics['total_dl_traffic']
+    return engagement_metrics
+
 

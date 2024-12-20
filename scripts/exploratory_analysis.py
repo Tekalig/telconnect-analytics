@@ -1,6 +1,4 @@
-import seaborn as sns
-import matplotlib.pyplot as plt
-from sklearn.decomposition import PCA
+# Description: This script contains functions to perform exploratory analysis on the dataset.
 import pandas as pd
 
 def compute_basic_metrics(data):
@@ -17,35 +15,10 @@ def segment_users_by_decile(data):
     return decile_data
 
 def compute_correlation_matrix(data, columns):
-    """Compute and visualize correlation matrix."""
+    """Compute  correlation matrix."""
     correlation_matrix = data[columns].corr()
-    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
-    plt.title("Correlation Matrix")
-    plt.show()
+
     return correlation_matrix
 
-def perform_pca(data, columns):
-    """Perform PCA and return explained variance ratio."""
-    pca = PCA(n_components=2)
-    principal_components = pca.fit_transform(data[columns])
-    explained_variance = pca.explained_variance_ratio_
-    return principal_components, explained_variance
 
-def plot_histograms(df):
-    """
-    Plots histograms for session duration and total data volume.
-    """
-    df['xDR_sessions'].hist(bins=30, alpha=0.5, label='Session Duration')
-    df['total_data_volume'].hist(bins=30, alpha=0.5, label='Total Data Volume')
-    plt.legend()
-    plt.show()
 
-def plot_pca_result(pca_result):
-    """
-    Plots the result of PCA analysis.
-    """
-    plt.scatter(pca_result[:, 0], pca_result[:, 1])
-    plt.title('PCA Result (2 Components)')
-    plt.xlabel('Principal Component 1')
-    plt.ylabel('Principal Component 2')
-    plt.show()

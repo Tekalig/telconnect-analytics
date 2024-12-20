@@ -16,7 +16,6 @@ DB_NAME = os.getenv("DB_NAME")
 
 # Create the SQLAlchemy connection URL
 DATABASE_URL = f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-print(DATABASE_URL)
 
 # Create the SQLAlchemy engine
 engine = create_engine(DATABASE_URL)
@@ -50,6 +49,7 @@ def insert_data_from_dataframe(df, table_name="xdr_data"):
 
                 # Insert the row into the table
                 connection.execute(table.insert().values(data))
+            connection.commit()
         print("Data inserted successfully.")
     except Exception as e:
         print(f"Error inserting data: {e}")
@@ -67,7 +67,9 @@ def bulk_insert_data_from_dataframe(df, table_name="xdr_data"):
         # Insert all records in one go (bulk insert)
         with engine.connect() as connection:
             connection.execute(table.insert(), data)
+            connection.commit()
         print("Bulk data inserted successfully.")
+
     except Exception as e:
         print(f"Error inserting data: {e}")
 

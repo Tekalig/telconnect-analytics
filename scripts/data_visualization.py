@@ -55,3 +55,50 @@ def plot_correlation_matrix(correlation_matrix):
     sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
     plt.title("Correlation Matrix")
     plt.show()
+
+
+def analyze_distributions(grouped, column, group_col):
+    """
+    Analyze distributions of a metric per group with improved visualization.
+    """
+    grouped = grouped[column]
+    # Plot using seaborn for better aesthetics
+    plt.figure(figsize=(12, 6))
+    sns.barplot(
+        x=grouped.index,
+        y=grouped.values,
+        palette="viridis",
+        hue=grouped.index,
+        legend=False
+    )
+    plt.title(f"{column} Distribution per {group_col}", fontsize=16, weight='bold')
+    plt.xlabel(group_col, fontsize=12)
+    plt.ylabel(f"Average {column}", fontsize=12)
+    plt.xticks(rotation=45, fontsize=10, ha='right')
+    plt.tight_layout()
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.show()
+
+
+
+def plot_clusters_2d(df, x_col, y_col, cluster_col):
+    """
+    Plot clusters in 2D space.
+
+    Parameters:
+        df (DataFrame): DataFrame containing the features and cluster labels.
+        x_col (str): Column name for the x-axis.
+        y_col (str): Column name for the y-axis.
+        cluster_col (str): Column name for the cluster labels.
+    """
+    plt.figure(figsize=(10, 6))
+    scatter = plt.scatter(
+        df[x_col], df[y_col], c=df[cluster_col], cmap='viridis', s=50, alpha=0.7
+    )
+    plt.colorbar(scatter, label='Cluster')
+    plt.title(f"Clusters based on {x_col} and {y_col}", fontsize=16, weight='bold')
+    plt.xlabel(x_col, fontsize=12)
+    plt.ylabel(y_col, fontsize=12)
+    plt.grid(alpha=0.5)
+    plt.show()
+

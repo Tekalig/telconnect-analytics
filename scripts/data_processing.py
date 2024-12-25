@@ -35,16 +35,19 @@ def remove_missing_values(data, columns=None):
     return data
 
 
-def handle_outliers(data, columns):
-    """Replace outliers using the interquartile range (IqR) method."""
-    for column in columns:
-        q1 = data[column].quantile(0.25)
-        q3 = data[column].quantile(0.75)
+def clean_and_treat_outliers(df):
+    """Clean data by treating missing values and outliers."""
+    for col in df.select_dtypes(include=['float64', 'int64']).columns:
+        df[col].fillna(df[col].mean(), inplace=True)
+        # Replace outliers using the 1.5*IQR rule
+        q1 = df[col].quantile(0.25)
+        q3 = df[col].quantile(0.75)
         iqr = q3 - q1
         lower_bound = q1 - 1.5 * iqr
         upper_bound = q3 + 1.5 * iqr
-        data[column] = np.clip(data[column], lower_bound, upper_bound)
-    return data
+        df[col] = df[col].clip(lower_bound, upper_bound)
+    return df
+
 
 def perform_pca(data, columns):
     """Perform PCA and return explained variance ratio."""
@@ -53,9 +56,9 @@ def perform_pca(data, columns):
     explained_variance = pca.explained_variance_ratio_
     return principal_components, explained_variance
 
-def normalize_engagement_metrics(engagement_metrics):
+def normalize_engagement_metrics(engagement_metrics, columns):
     """Normalize engagement metrics using StandardScaler."""
     scaler = StandardScaler()
-    engagement_metrics[['session_frequency', 'session_duration', 'total_traffic']] = scaler.fit_transform(
-        engagement_metrics[['session_frequency', 'session_duration', 'total_traffic']])
+    engagement_metrics[columns] = scaler.fit_transform(
+        engagement_metrics[columns])
     return engagement_metrics

@@ -57,29 +57,28 @@ def plot_correlation_matrix(correlation_matrix):
     plt.show()
 
 
-def analyze_distributions(grouped, column, group_col):
+def analyze_distributions(df, column, group_col):
     """
     Analyze distributions of a metric per group with improved visualization.
     """
-    grouped = grouped[column]
+    grouped = df.groupby(group_col)[column].mean().sort_values()
+
     # Plot using seaborn for better aesthetics
-    plt.figure(figsize=(12, 6))
+    plt.figure(figsize=(14, 12))
     sns.barplot(
-        x=grouped.index,
-        y=grouped.values,
+        y=grouped.index,
+        x=grouped.values,
         palette="viridis",
-        hue=grouped.index,
+        hue=grouped.values,
         legend=False
     )
     plt.title(f"{column} Distribution per {group_col}", fontsize=16, weight='bold')
-    plt.xlabel(group_col, fontsize=12)
-    plt.ylabel(f"Average {column}", fontsize=12)
-    plt.xticks(rotation=45, fontsize=10, ha='right')
+    plt.ylabel(group_col, fontsize=10)
+    plt.xlabel(f"Average {column}", fontsize=12)
+    plt.yticks(fontsize=8)
     plt.tight_layout()
-    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.grid(axis='x', linestyle='--', alpha=0.7)
     plt.show()
-
-
 
 def plot_clusters_2d(df, x_col, y_col, cluster_col):
     """

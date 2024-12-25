@@ -63,3 +63,24 @@ def aggregate_engagement_metrics(df):
     return engagement_metrics
 
 
+def aggregate_experience_metrics(df):
+    """Aggregate experience metrics per customer."""
+    experience_metrics = df.groupby('MSISDN/Number').agg({
+        'TCP DL Retrans. Vol (Bytes)': 'mean',
+        'TCP UL Retrans. Vol (Bytes)': 'mean',
+        'Avg RTT DL (ms)': 'mean',
+        'Avg RTT UL (ms)': 'mean',
+        'Avg Bearer TP DL (kbps)': 'mean',
+        'Avg Bearer TP UL (kbps)': 'mean',
+        'Handset Type': lambda x: x.mode()[0]
+    }).reset_index()
+
+    return experience_metrics
+
+def analyze_top_bottom_frequent(df, column):
+    """Compute and list top, bottom, and most frequent values."""
+    top = df.nlargest(10, column)
+    bottom = df.nsmallest(10, column)
+    frequent = df[column].value_counts().head(10)
+    return top, bottom, frequent
+

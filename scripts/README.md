@@ -19,19 +19,18 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-To use the scripts, navigate to the `notebooks` folder and run the following command:
+To use the src, navigate to the `scripts` folder and run the following command:
 ```bash
-python notebooks/script_name.py
+python scripts/main.py
 ```
-Replace `script_name.py` with the name of the script you want to execute.
+Replace `main.py` with the name of the script you want to execute.
 
-Alternatively, you can import the scripts in your Python code as follows:
+Alternatively, you can import the src in your Python code as follows:
 ```python
-from notebooks import script_name
+from src import main
 ```
-Replace `script_name` with the name of the script you want to import.
+Replace `main` with the name of the script you want to import.
 ```
-Replace `script_name.py` with the name of the script you want to execute.
 
 ## Contributing
 We welcome contributions! Please read our [contributing guidelines](CONTRIBUTING.md) for more details.

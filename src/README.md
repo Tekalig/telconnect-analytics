@@ -1,6 +1,6 @@
-# Telconnect Analytics Scripts
+# Telconnect Analytics Src
 
-This directory contains various scripts used for Telconnect Analytics.
+This directory contains various Src used for Telconnect Analytics.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -10,7 +10,7 @@ This directory contains various scripts used for Telconnect Analytics.
 - [License](#license)
 
 ## Introduction
-Welcome to the Telconnect Analytics Scripts repository. This repository contains scripts that help in analyzing Telconnect data.
+Welcome to the Telconnect Analytics Scripts repository. This repository contains src that help in analyzing Telconnect data.
 
 ## Installation
 To install the necessary dependencies, run:
@@ -19,18 +19,19 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-To use the src, navigate to the `scripts` folder and run the following command:
+To use the src, navigate to the `notebooks` folder and run the following command:
 ```bash
-python scripts/main.py
+python notebooks/script_name.py
 ```
-Replace `main.py` with the name of the script you want to execute.
+Replace `script_name.py` with the name of the script you want to execute.
 
 Alternatively, you can import the src in your Python code as follows:
 ```python
-from src import main
+from notebooks import script_name
 ```
-Replace `main` with the name of the script you want to import.
+Replace `script_name` with the name of the script you want to import.
 ```
+Replace `script_name.py` with the name of the script you want to execute.
 
 ## Contributing
 We welcome contributions! Please read our [contributing guidelines](CONTRIBUTING.md) for more details.

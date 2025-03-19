@@ -90,3 +90,11 @@ def retrieve_data_from_database(table_name="xdr_data"):
     except Exception as e:
         print(f"Error retrieving data: {e}")
         return None
+
+
+def export_to_mysql(df, db_name, table_name):
+    """
+    Export the final table to a local MySQL database.
+    """
+    df.to_sql(table_name, con=engine, if_exists="replace", index=False)
+    print(f"Data exported to {db_name}.{table_name}")

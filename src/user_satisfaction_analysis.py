@@ -1,6 +1,5 @@
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import euclidean_distances
-from sqlalchemy import create_engine
 
 def assign_engagement_score(df, features, cluster_centers):
     """
@@ -32,11 +31,3 @@ def predict_satisfaction(df, features):
     y = df['satisfaction_score']
     model.fit(X, y)
     return model
-
-def export_to_mysql(df, db_name, table_name):
-    """
-    Export the final table to a local MySQL database.
-    """
-    engine = create_engine(f'mysql+pymysql://besu:Besu@hazi21@localhost/{db_name}')
-    df.to_sql(table_name, con=engine, if_exists='replace', index=False)
-    print(f"Data exported to {db_name}.{table_name}")

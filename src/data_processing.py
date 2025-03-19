@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
@@ -7,6 +6,7 @@ from sklearn.preprocessing import StandardScaler
 def load_data(file_path):
     """Load dataset and return a DataFrame."""
     return pd.read_csv(file_path)
+
 
 def handle_missing_values(data):
     """Fill missing values with the mean or other strategies."""
@@ -37,7 +37,7 @@ def remove_missing_values(data, columns=None):
 
 def clean_and_treat_outliers(df):
     """Clean data by treating missing values and outliers."""
-    for col in df.select_dtypes(include=['float64', 'int64']).columns:
+    for col in df.select_dtypes(include=["float64", "int64"]).columns:
         df[col].fillna(df[col].mean(), inplace=True)
         # Replace outliers using the 1.5*IQR rule
         q1 = df[col].quantile(0.25)
@@ -56,9 +56,9 @@ def perform_pca(data, columns):
     explained_variance = pca.explained_variance_ratio_
     return principal_components, explained_variance
 
+
 def normalize_engagement_metrics(engagement_metrics, columns):
     """Normalize engagement metrics using StandardScaler."""
     scaler = StandardScaler()
-    engagement_metrics[columns] = scaler.fit_transform(
-        engagement_metrics[columns])
+    engagement_metrics[columns] = scaler.fit_transform(engagement_metrics[columns])
     return engagement_metrics
